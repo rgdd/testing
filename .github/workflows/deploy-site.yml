@@ -48,7 +48,7 @@ jobs:
       - name: Deploy site on server
         run: |
           echo site.tar | \
-            ssh -T \
+            ssh -vvv -T \
               -l "$USER" \
               -i ~/.ssh/id_ed25519 \
               -o "StrictHostKeyChecking yes" \
