@@ -51,7 +51,7 @@ jobs:
             ssh -vvv -T \
               -l "$USER" \
               -i ~/.ssh/id_ed25519 \
-              -o "VerifyHostKeyDNS yes"
+              -o "VerifyHostKeyDNS yes" \
               -o "StrictHostKeyChecking yes" \
               -p "$PORT" \
               "$SERVER"
