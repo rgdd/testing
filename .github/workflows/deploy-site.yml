@@ -42,7 +42,7 @@ jobs:
 
       - name: Deploy site on server
         run: |
-          echo site.tar | \
+          cat site.tar | \
             ssh -T \
               -l "$USER" \
               -i ~/.ssh/id_ed25519 \
