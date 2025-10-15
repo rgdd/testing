@@ -37,13 +37,13 @@ jobs:
       - name: Prepare SSH key and known hosts
         env:
           SSH_PRIV_KEY: ${{ secrets.SITE_SSH_PRIV_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.SITE_SSH_KNOWN_HOSTS }}
+          #SSH_KNOWN_HOSTS: ${{ secrets.SITE_SSH_KNOWN_HOSTS }}
+          #chmod 600 ~/.ssh/id_ed25519
+          #chmod 644 ~/.ssh/known_hosts
         run: |
           mkdir -p ~/.ssh
           printf "%s" "$SSH_PRIV_KEY"    > ~/.ssh/id_ed25519
           printf "%s" "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/id_ed25519
-          chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy site on server
         run: |
@@ -51,6 +51,7 @@ jobs:
             ssh -vvv -T \
               -l "$USER" \
               -i ~/.ssh/id_ed25519 \
+              -o "VerifyHostKeyDNS yes"
               -o "StrictHostKeyChecking yes" \
               -p "$PORT" \
               "$SERVER"
