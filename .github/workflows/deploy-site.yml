@@ -39,7 +39,7 @@ jobs:
           SSH_PRIV_KEY: ${{ secrets.SITE_SSH_PRIV_KEY }}
         run: |
           mkdir -p ~/.ssh
-          printf "%s" "$SSH_PRIV_KEY" > ~/.ssh/id_ed25519
+          echo "$SSH_PRIV_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
       - name: Deploy site on server
