@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout (with submodules)
+      - name: Checkout with submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -24,7 +24,7 @@ jobs:
       - name: Install deps
         run: |
           sudo apt-get -qq update
-          sudo apt-get install -qqy git-core hugo curl openssh-client tar
+          sudo apt-get install -qqy hugo tar openssh-client 
 
       - name: Build hugo site
         run: |
@@ -34,12 +34,12 @@ jobs:
         run: |
           tar cf site.tar -C site/public .
 
-      - name: Prepare SSH key and known hosts
+      - name: Prepare SSH key-file
         env:
           SSH_PRIV_KEY: ${{ secrets.SITE_SSH_PRIV_KEY }}
         run: |
           mkdir -p ~/.ssh
-          printf "%s" "$SSH_PRIV_KEY"    > ~/.ssh/id_ed25519
+          printf "%s\n" "$SSH_PRIV_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
       - name: Deploy site on server
