@@ -24,7 +24,7 @@ jobs:
       - name: Install deps
         run: |
           sudo apt-get -qq update
-          sudo apt-get install -qqy hugo tar openssh-client 
+          sudo apt-get install -qqy hugo tar openssh-client
 
       - name: Build hugo site
         run: |
@@ -39,7 +39,7 @@ jobs:
           SSH_PRIV_KEY: ${{ secrets.SITE_SSH_PRIV_KEY }}
         run: |
           mkdir -p ~/.ssh
-          printf "%s\n" "$SSH_PRIV_KEY" > ~/.ssh/id_ed25519
+          printf "%s" "$SSH_PRIV_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
       - name: Deploy site on server
